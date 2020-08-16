@@ -44,13 +44,12 @@ namespace ht_v2 {
             ~hash_table();
 
             void ht_insert(unsigned long, void *);
-            void ht_search(unsigned long, size_t *);
+            int ht_find(unsigned long, size_t *);
             int ht_get(unsigned long, void *);
             int ht_delete(unsigned long);
             unsigned long ht_generate_key();
     };
-
-    
+  
 }
 
 #endif /* _HASH_TABLE_V2_H */
