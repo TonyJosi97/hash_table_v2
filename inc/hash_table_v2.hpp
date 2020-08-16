@@ -43,7 +43,11 @@ namespace ht_v2 {
             hash_table& operator=(hash_table &&move_ob);
             ~hash_table();
 
-            
+            void ht_insert(unsigned long, void *);
+            void ht_search(unsigned long, size_t *);
+            int ht_get(unsigned long, void *);
+            int ht_delete(unsigned long);
+            unsigned long ht_generate_key();
     };
 
     
