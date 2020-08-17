@@ -1,5 +1,5 @@
 /** 
- *  @file   hash_table_core.c
+ *  @file   hash_table_core.cc
  *  @brief  Library function defintions
  *
  *  This contains the Library function defintions
