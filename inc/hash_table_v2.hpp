@@ -36,6 +36,8 @@ namespace ht_v2 {
                                                         decreased on scale down */
             struct _ght_item   *items;              /*!< Pointer to the items memory of Hash Table */
 
+            void swap_hash_t_objs(hash_table &obj1, hash_table &obj2); /* Swaps 2 `hash_table` objects */
+
         public:
             explicit hash_table(size_t base_capacity, size_t capacity, size_t item_size, size_t count, int scaling_factor);
             hash_table(const hash_table &copy_ob);
