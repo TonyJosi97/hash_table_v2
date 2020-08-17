@@ -38,6 +38,7 @@ namespace ht_v2 {
 
         public:
             explicit hash_table(size_t base_capacity, size_t capacity, size_t item_size, size_t count, int scaling_factor);
+            hash_table(const hash_table &copy_ob);
             hash_table & operator=(const hash_table &copy_ob);
             hash_table(hash_table &&move_ob);
             hash_table & operator=(hash_table &&move_ob);
