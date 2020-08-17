@@ -30,7 +30,7 @@ ht_v2::hash_table::hash_table(
     void *_t_mem = operator new(capacity * item_size);
     for(int i = 0; i < capacity; ++i) {
         items[i].is_active = false;
-        items[i].val_ptr = _t_mem + item_size * i;
+        items[i].val_ptr = static_cast<char*>(_t_mem) + item_size * i;
     }
 
 }
