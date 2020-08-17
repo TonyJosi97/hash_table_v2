@@ -52,7 +52,10 @@ ht_v2::hash_table::hash_table(
 
 }
 
-void ht_v2::hash_table::swap_hash_t_objs(ht_v2::hash_table &obj1, ht_v2::hash_table &obj2) {
+void ht_v2::hash_table::swap_hash_t_objs(
+    ht_v2::hash_table &obj1, 
+    ht_v2::hash_table &obj2
+) {
     
     std::swap(obj1.base_capacity,   obj2.base_capacity);
     std::swap(obj1.capacity,        obj2.capacity);
@@ -65,4 +68,14 @@ void ht_v2::hash_table::swap_hash_t_objs(ht_v2::hash_table &obj1, ht_v2::hash_ta
         std::swap(obj1.items[i].is_active,      obj2.items[i].is_active);
         std::swap(obj1.items[i].val_ptr,        obj2.items[i].val_ptr);
     }
+}
+
+ht_v2::hash_table & ht_v2::hash_table::operator=(
+    const ht_v2::hash_table &copy_ob
+) {
+
+    ht_v2::hash_table val_obj(copy_ob);
+    swap_hash_t_objs(*this, val_obj);
+    return *this;
+
 }
