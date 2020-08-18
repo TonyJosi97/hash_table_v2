@@ -37,6 +37,8 @@ namespace ht_v2 {
             struct _ght_item   *items;              /*!< Pointer to the items memory of Hash Table */
 
             void swap_hash_t_objs(hash_table &obj1, hash_table &obj2); /* Swaps 2 `hash_table` objects */
+            int __ht_core_util_scale_up(hash_table &obj);
+            int __ht_core_util_item_init(struct _ght_item *items, unsigned long key, void *val);
 
         public:
             explicit hash_table(size_t base_capacity, size_t capacity, size_t item_size, size_t count, int scaling_factor);
@@ -46,8 +48,8 @@ namespace ht_v2 {
             hash_table & operator=(hash_table &&move_ob);
             ~hash_table();
 
-            void ht_insert(unsigned long, void *);
-            int ht_find(unsigned long, size_t *);
+            void ht_insert(unsigned long key, void *val_ptr);
+            int ht_find(unsigned long, size_t &);
             int ht_get(unsigned long, void *);
             int ht_delete(unsigned long);
             unsigned long ht_generate_key();

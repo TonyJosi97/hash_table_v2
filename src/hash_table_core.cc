@@ -12,6 +12,9 @@
 #include <algorithm>
 
 #include "../inc/hash_table_v2.hpp"
+#include "../inc/hash_table_util.hpp"
+
+constexpr size_t SCALE_UP_THRESHOLD {60};
 
 ht_v2::hash_table::hash_table(
     size_t      base_capacity, 
@@ -135,3 +138,46 @@ ht_v2::hash_table::~hash_table() {
     }
 
 }
+
+void ht_v2::hash_table::ht_insert(
+    unsigned long key, 
+    void *val_ptr
+    ) {
+
+    size_t ht_density = (count * 100) / capacity;
+    if(ht_density > SCALE_UP_THRESHOLD) {
+
+        if(__ht_core_util_scale_up(*this) != 0) 
+            throw "Scale UP Failed";
+        
+        scaling_factor += 1;
+
+    }
+
+    size_t prev_index;
+    if(ht_find(key, prev_index) == 0) {
+        throw "Key already exits!";
+    }
+
+    unsigned int chain_len = 0;
+    size_t item_index = __ght_core_util_get_hash(key, capacity, chain_len);
+
+    while((items[item_index].is_active) != false) {
+        ++chain_len;
+        if(chain_len == (capacity - 1))
+            throw "Cyclic check";
+
+        item_index++;
+        item_index = __ght_core_util_get_hash(item_index, capacity, chain_len);
+    }
+
+    try  {
+        __ht_core_util_item_init(&items[item_index], key, val_ptr);
+    }
+    catch(...) {
+        throw "Insertion Failed";
+    }
+
+    count += 1;
+}
+
