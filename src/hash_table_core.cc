@@ -25,7 +25,7 @@ ht_v2::hash_table::hash_table(
     , item_size         { item_size }
     , count             { count }
     , scaling_factor    { scaling_factor }
-    , items             { new struct _ght_item[capacity] } {
+    , items             { capacity ? new struct _ght_item[capacity] : 0 } {
 
     void *_t_mem = operator new(capacity * item_size);
     for(int i = 0; i < capacity; ++i) {
@@ -43,8 +43,9 @@ ht_v2::hash_table::hash_table(
     , item_size         { copy_ob.item_size }
     , count             { copy_ob.count }
     , scaling_factor    { copy_ob.scaling_factor }
-    , items             { copy_ob.items } {
+    , items             { capacity ? new struct _ght_item[capacity] : 0 } {
 
+    void *_t_mem = operator new(capacity * item_size);
     for(int i = 0; i < capacity; ++i) {
         items[i].is_active = copy_ob.items[i].is_active;
         items[i].val_ptr = copy_ob.items[i].val_ptr;
