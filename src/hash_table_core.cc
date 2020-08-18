@@ -48,7 +48,8 @@ ht_v2::hash_table::hash_table(
     void *_t_mem = operator new(capacity * item_size);
     for(int i = 0; i < capacity; ++i) {
         items[i].is_active = copy_ob.items[i].is_active;
-        items[i].val_ptr = copy_ob.items[i].val_ptr;
+        items[i].val_ptr = static_cast<char*>(_t_mem) + item_size * i;
+        memcpy(items[i].val_ptr, copy_ob.items[i].val_ptr, item_size);
     }
 
 }
