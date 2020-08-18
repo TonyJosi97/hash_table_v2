@@ -36,7 +36,7 @@ ht_v2::hash_table::hash_table(
 }
 
 ht_v2::hash_table::hash_table(
-    const hash_table &copy_ob)
+    const ht_v2::hash_table &copy_ob)
 
     : base_capacity     { copy_ob.base_capacity }
     , capacity          { copy_ob.capacity }
@@ -79,5 +79,25 @@ ht_v2::hash_table & ht_v2::hash_table::operator=(
     ht_v2::hash_table val_obj(copy_ob);
     swap_hash_t_objs(*this, val_obj);
     return *this;
+
+}
+
+
+ht_v2::hash_table::hash_table(
+    ht_v2::hash_table &&move_ob) 
+
+    : base_capacity     { move_ob.base_capacity }
+    , capacity          { move_ob.capacity }
+    , item_size         { move_ob.item_size }
+    , count             { move_ob.count }
+    , scaling_factor    { move_ob.scaling_factor }
+    , items             { move_ob.items } {
+
+    move_ob.items = nullptr;
+    move_ob.base_capacity = 0;
+    move_ob.capacity = 0;
+    move_ob.item_size = 0;
+    move_ob.count = 0;
+    move_ob.scaling_factor = 0;
 
 }
