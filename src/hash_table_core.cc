@@ -101,3 +101,37 @@ ht_v2::hash_table::hash_table(
     move_ob.scaling_factor = 0;
 
 }
+
+ht_v2::hash_table & ht_v2::hash_table::operator=(
+    ht_v2::hash_table &&move_ob) {
+
+    if(this != &move_ob) {
+        if(items) {
+            operator delete(items[0].val_ptr);
+            delete items;
+        }   
+        items = move_ob.items;
+        base_capacity = move_ob.base_capacity;
+        capacity = move_ob.capacity;
+        item_size = move_ob.item_size;
+        count = move_ob.count;
+        scaling_factor = move_ob.scaling_factor;
+        move_ob.items = nullptr;
+        move_ob.base_capacity = 0;
+        move_ob.capacity = 0;
+        move_ob.item_size = 0;
+        move_ob.count = 0;
+        move_ob.scaling_factor = 0;
+    }
+    return *this;
+
+}
+
+ht_v2::hash_table::~hash_table() {
+
+    if(items) {
+        operator delete(items[0].val_ptr);
+        delete items;
+    }
+
+}
