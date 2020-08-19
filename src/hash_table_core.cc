@@ -139,7 +139,7 @@ ht_v2::hash_table::~hash_table() {
 
 }
 
-void ht_v2::hash_table::ht_insert(
+ht_v2::ht_ret_status_t ht_v2::hash_table::ht_insert(
     unsigned long key, 
     void *val_ptr
     ) {
@@ -155,9 +155,8 @@ void ht_v2::hash_table::ht_insert(
     }
 
     size_t prev_index;
-    if(ht_find(key, prev_index) == 0) {
-        throw "Key already exits!";
-    }
+    if(ht_find(key, prev_index) == 0) 
+        return HT_KEY_ALRDY_EXISTS;
 
     unsigned int chain_len = 0;
     size_t item_index = __ht_core_util_get_hash(key, capacity, chain_len);
@@ -179,5 +178,35 @@ void ht_v2::hash_table::ht_insert(
     }
 
     count += 1;
+    return HT_SUCCESS;
+}
+
+ht_v2::ht_ret_status_t ht_v2::hash_table::ht_find(
+    unsigned long key, 
+    size_t &indx
+) {
+
+
+    unsigned int chain_len = 0;
+    size_t item_index = __ht_core_util_get_hash(key, capacity, chain_len);
+
+    while((items[item_index].is_active == true) && (items[item_index].key != key)) {
+
+        ++chain_len;
+        if(chain_len == (capacity - 1))
+            return HT_ITEM_NOT_FOUND;
+
+        item_index++;
+        item_index = __ht_core_util_get_hash(item_index, capacity, chain_len);
+
+    }
+
+    if(items[item_index].is_active == true) {
+        indx = item_index;
+        return HT_SUCCESS;
+    }
+
+    return HT_ITEM_NOT_FOUND;
+
 }
 

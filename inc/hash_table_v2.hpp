@@ -25,6 +25,15 @@ namespace ht_v2 {
 
     };
 
+    typedef enum {
+        HT_SUCCESS = 0,        /*!< HT Function success */
+        HT_KEY_ALRDY_EXISTS,   /*!< HT Key Already exists */
+        HT_EMPTY,              /*!< HT Hash table empty */
+        HT_ITEM_NOT_FOUND,     /*!< HT Item is not present in hash table */
+        HT_INVALID_PARAMS,     /*!< HT Invalid function params */
+        HT_FAIL                /*!< HT Function Fail */
+    } ht_ret_status_t;
+
     class hash_table {
 
         private:
@@ -48,10 +57,10 @@ namespace ht_v2 {
             hash_table & operator=(hash_table &&move_ob);
             ~hash_table();
 
-            void ht_insert(unsigned long key, void *val_ptr);
-            int ht_find(unsigned long, size_t &);
-            int ht_get(unsigned long, void *);
-            int ht_delete(unsigned long);
+            ht_ret_status_t ht_insert(unsigned long key, void *val_ptr);
+            ht_ret_status_t ht_find(unsigned long, size_t &);
+            ht_ret_status_t ht_get(unsigned long, void *);
+            ht_ret_status_t ht_delete(unsigned long);
             unsigned long ht_generate_key();
     };
   

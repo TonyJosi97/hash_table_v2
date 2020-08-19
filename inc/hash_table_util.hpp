@@ -14,7 +14,7 @@
 
 #include "hash_table_v2.hpp"
 
-unsigned long    __ht_core_util_get_hash(const unsigned long, const unsigned long, unsigned int);
+size_t           __ht_core_util_get_hash(const unsigned long, const unsigned long, unsigned int);
 unsigned long    get_time_in_nanosec(void);
 unsigned int     get_next_prime(unsigned int);
 
