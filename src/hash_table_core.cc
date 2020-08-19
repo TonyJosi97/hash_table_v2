@@ -14,7 +14,8 @@
 #include "../inc/hash_table_v2.hpp"
 #include "../inc/hash_table_util.hpp"
 
-constexpr size_t SCALE_UP_THRESHOLD {60};
+constexpr size_t SCALE_UP_THRESHOLD     {60};
+constexpr size_t SCALE_DOWN_THRESHOLD   {20};
 
 ht_v2::hash_table::hash_table(
     size_t      base_capacity, 
@@ -231,7 +232,57 @@ ht_v2::ht_ret_status_t ht_v2::hash_table::ht_delete(
     unsigned long key
 ) { 
 
-    
+    unsigned int ht_density = (count * 100) / capacity;
 
+    if((scaling_factor > 0) && (ht_density < SCALE_DOWN_THRESHOLD)) {
+
+        if(__ht_core_util_scale_down(*this) != HT_SUCCESS)
+            throw "Scale Down failed";
+
+        scaling_factor -= 1;
+    }
+
+    bool item_found = false;
+
+    if(count > 0) {
+
+        unsigned int chain_len = 0;
+        ht_ret_status_t ret_code;
+        size_t item_index = __ht_core_util_get_hash(key, capacity, chain_len);
+
+        while(items[item_index].is_active == true) {
+
+            if(item_found == true) {
+                count -= 1;
+                items[item_index].is_active = false;
+                if((ret_code = ht_insert(items[item_index].key, items[item_index].val_ptr)) != HT_SUCCESS) {
+                    count += 1;
+                    return HT_FAIL;
+                }
+            }
+
+            if(items[item_index].key == key) {
+                items[item_index].is_active = false;
+                item_found = true;
+            }
+
+            ++chain_len;
+            if(chain_len == (capacity - 1))
+                return HT_ITEM_NOT_FOUND;
+       
+            item_index++;
+            item_index = __ht_core_util_get_hash(item_index, capacity, chain_len);
+
+        }
+    }
+    else
+        return HT_EMPTY;
+
+    if(item_found == true) {
+        count -= 1;
+        return HT_SUCCESS;
+    }
+    else 
+        return HT_FAIL;
 
 }

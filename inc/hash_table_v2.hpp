@@ -47,6 +47,7 @@ namespace ht_v2 {
 
             void swap_hash_t_objs(hash_table &obj1, hash_table &obj2); /* Swaps 2 `hash_table` objects */
             int __ht_core_util_scale_up(hash_table &obj);
+            int __ht_core_util_scale_down(hash_table &obj);
             int __ht_core_util_item_init(struct _ght_item *items, unsigned long key, void *val);
 
         public:
