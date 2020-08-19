@@ -328,3 +328,15 @@ int ht_v2::hash_table::__ht_core_util_resize(
     *this = new_ht;
     return 0;
 }
+
+
+int ht_v2::hash_table::__ht_core_util_scale_up() { 
+
+    return __ht_core_util_resize(capacity * 2);
+}
+
+int ht_v2::hash_table::__ht_core_util_scale_down() { 
+
+    return __ht_core_util_resize(capacity / 2);
+}
+
