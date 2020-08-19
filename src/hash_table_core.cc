@@ -210,3 +210,28 @@ ht_v2::ht_ret_status_t ht_v2::hash_table::ht_find(
 
 }
 
+ht_v2::ht_ret_status_t ht_v2::hash_table::ht_get(
+    unsigned long key, 
+    void *ret_val_ptr
+) { 
+
+    size_t item_index;
+    ht_ret_status_t ret_code;
+
+    if((ret_code = ht_find(key, item_index)) != HT_SUCCESS)
+        return ret_code;
+
+    if(!memcpy(ret_val_ptr, items[item_index].val_ptr, item_size)) {
+        throw "memcpy() Failed";
+    }
+    return HT_SUCCESS;
+}
+
+ht_v2::ht_ret_status_t ht_v2::hash_table::ht_delete(
+    unsigned long key
+) { 
+
+    
+
+
+}
