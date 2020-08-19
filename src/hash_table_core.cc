@@ -149,7 +149,7 @@ ht_v2::ht_ret_status_t ht_v2::hash_table::ht_insert(
     size_t ht_density = (count * 100) / capacity;
     if(ht_density > SCALE_UP_THRESHOLD) {
 
-        if(__ht_core_util_scale_up(*this) != 0) 
+        if(__ht_core_util_scale_up() != 0) 
             throw "Scale UP Failed";
         
         scaling_factor += 1;
@@ -239,7 +239,7 @@ ht_v2::ht_ret_status_t ht_v2::hash_table::ht_delete(
 
     if((scaling_factor > 0) && (ht_density < SCALE_DOWN_THRESHOLD)) {
 
-        if(__ht_core_util_scale_down(*this) != HT_SUCCESS)
+        if(__ht_core_util_scale_down() != HT_SUCCESS)
             throw "Scale Down failed";
 
         scaling_factor -= 1;
