@@ -160,7 +160,7 @@ void ht_v2::hash_table::ht_insert(
     }
 
     unsigned int chain_len = 0;
-    size_t item_index = __ght_core_util_get_hash(key, capacity, chain_len);
+    size_t item_index = __ht_core_util_get_hash(key, capacity, chain_len);
 
     while((items[item_index].is_active) != false) {
         ++chain_len;
@@ -168,7 +168,7 @@ void ht_v2::hash_table::ht_insert(
             throw "Cyclic check";
 
         item_index++;
-        item_index = __ght_core_util_get_hash(item_index, capacity, chain_len);
+        item_index = __ht_core_util_get_hash(item_index, capacity, chain_len);
     }
 
     try  {
