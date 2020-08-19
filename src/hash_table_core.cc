@@ -321,10 +321,10 @@ int ht_v2::hash_table::__ht_core_util_resize(
         for(size_t i = 0; i < capacity; i++) 
             if(items[i].is_active == true) {
                 if(new_ht.ht_insert(items[i].key, items[i].val_ptr) != HT_SUCCESS)
-                    return HT_FAIL;
+                    return 1;
             }
     }
         
     *this = new_ht;
-    return HT_SUCCESS;
+    return 0;
 }
