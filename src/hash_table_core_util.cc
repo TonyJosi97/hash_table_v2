@@ -54,8 +54,9 @@ get_time_in_nanosec(
     auto now = std::chrono::system_clock::now();
     auto duration = now.time_since_epoch();
     auto nanoseconds =  std::chrono::duration_cast<std::chrono::nanoseconds>(duration);
-    auto val = std::chrono::duration_cast<long>(nanoseconds);
-    unsigned long lval = static_cast<unsigned long>(val);
+    auto val = nanoseconds.count();
+    unsigned long lval = val;
     return lval;
 }
+
 
