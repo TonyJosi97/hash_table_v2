@@ -33,7 +33,7 @@ ht_v2::hash_table::hash_table(
     , items             { capacity ? new struct _ght_item[capacity] : 0 } {
 
     void *_t_mem = operator new(capacity * item_size);
-    for(int i = 0; i < capacity; ++i) {
+    for(unsigned long i = 0; i < capacity; ++i) {
         items[i].is_active = false;
         items[i].val_ptr = static_cast<char*>(_t_mem) + item_size * i;
     }
@@ -51,7 +51,7 @@ ht_v2::hash_table::hash_table(
     , items             { capacity ? new struct _ght_item[capacity] : 0 } {
 
     void *_t_mem = operator new(capacity * item_size);
-    for(int i = 0; i < capacity; ++i) {
+    for(unsigned long i = 0; i < capacity; ++i) {
         items[i].is_active = copy_ob.items[i].is_active;
         items[i].val_ptr = static_cast<char*>(_t_mem) + item_size * i;
         memcpy(items[i].val_ptr, copy_ob.items[i].val_ptr, item_size);
@@ -71,7 +71,7 @@ void ht_v2::hash_table::swap_hash_t_objs(
     std::swap(obj1.scaling_factor,  obj2.scaling_factor);
     std::swap(obj1.items,           obj2.items);
 
-    for(int i = 0; i < capacity; ++i) {
+    for(size_t i = 0; i < capacity; ++i) {
         std::swap(obj1.items[i].is_active,      obj2.items[i].is_active);
         std::swap(obj1.items[i].val_ptr,        obj2.items[i].val_ptr);
     }
@@ -238,7 +238,7 @@ ht_v2::ht_ret_status_t ht_v2::hash_table::ht_delete(
     unsigned long key
 ) { 
 
-    unsigned int ht_density = (count * 100) / capacity;
+    unsigned long ht_density = (count * 100) / capacity;
 
     if((scaling_factor > 0) && (ht_density < SCALE_DOWN_THRESHOLD)) {
 

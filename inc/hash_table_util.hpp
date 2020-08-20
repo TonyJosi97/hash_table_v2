@@ -16,6 +16,6 @@
 
 size_t           __ht_core_util_get_hash(const unsigned long, const unsigned long, unsigned int);
 unsigned long    get_time_in_nanosec(void);
-unsigned int     get_next_prime(unsigned int);
+size_t           get_next_prime(size_t);
 
 #endif /* _HASH_TABLE_UTIL_H */

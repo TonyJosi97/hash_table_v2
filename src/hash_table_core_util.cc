@@ -5,7 +5,7 @@
 
 #define UNUSED(X)                       (void)X      /* To avoid gcc/g++ warnings */
 
-static unsigned int     check_if_prime(unsigned int);
+static unsigned int     check_if_prime(size_t);
 
 
 unsigned long 
@@ -21,7 +21,7 @@ __ht_core_util_get_hash(
 
 unsigned int 
 check_if_prime(
-    unsigned int num) {
+    size_t num) {
 
     if(num < 2)
         return 1;
@@ -30,7 +30,7 @@ check_if_prime(
     if((num % 2) == 0)
         return 1;
 
-    for(unsigned int itr = 3; itr <= floor(sqrt((double) num)); itr += 2)
+    for(unsigned int itr = 3; itr <= floor(sqrt(num)); itr += 2)
         if((num % itr) == 0)
             return 1;
     return 0;
@@ -38,8 +38,8 @@ check_if_prime(
 
 
 
-unsigned int     
-get_next_prime(unsigned int base) {
+size_t
+get_next_prime(size_t base) {
 
     while(check_if_prime(base) != 0)
         ++base;
@@ -55,7 +55,7 @@ get_time_in_nanosec(
     auto duration = now.time_since_epoch();
     auto nanoseconds =  std::chrono::duration_cast<std::chrono::nanoseconds>(duration);
     auto val = nanoseconds.count();
-    unsigned long lval = val;
+    unsigned long lval = static_cast<unsigned long>(val);
     return lval;
 }
 
