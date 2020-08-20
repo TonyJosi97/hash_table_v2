@@ -34,8 +34,7 @@ set (CMAKE_CXX_FLAGS "-Ofast -ggdb3 -pedantic -Wall -Wextra -Wcast-align -Wcast-
 -Wvariadic-macros \
 -Wwrite-strings")
 
-SET(SOURCES hast_table_core.cc)
-SET(SOURCES hast_table_core_util.cc)
+SET(SOURCES hash_table_core.cc hash_table_core_util.cc) 
 
 add_library(ht_lib STATIC ${SOURCES})
 

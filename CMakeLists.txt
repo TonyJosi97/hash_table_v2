@@ -5,7 +5,7 @@ project(hast_table VERSION 1.0)
 
 set(CMAKE_BUILD_TYPE Debug)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set (CMAKE_CXX_FLAGS "-Ofast -ggdb3 -pedantic -Wall -Wextra -Wcast-align -Wcast-qual \
@@ -41,6 +41,7 @@ add_subdirectory(src)
 set(SOURCES test_main.cc)
 
 # add_library(aes_exe STATIC ${SOURCES})
+
 add_executable(ht_exe ${SOURCES})
 
 target_link_libraries(ht_exe ht_lib)

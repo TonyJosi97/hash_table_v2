@@ -173,7 +173,10 @@ ht_v2::ht_ret_status_t ht_v2::hash_table::ht_insert(
     }
 
     try  {
-        __ht_core_util_item_init(&items[item_index], key, val_ptr);
+        //__ht_core_util_item_init(&items[item_index], key, val_ptr);
+        items[item_index].is_active = true;
+        items[item_index].key = key;
+        memcpy(items[item_index].val_ptr, val_ptr, item_size);
     }
     catch(...) {
         throw "Insertion Failed";
