@@ -11,7 +11,7 @@ Build & Run:
 ``` sh
 git clone git@github.com:TonyJosi97/hash_table_v2.git
 cd hash_table_v2
-mkdir build
+mkdir build && cd build 
 cmake ..
 make
 ./ht_exe
