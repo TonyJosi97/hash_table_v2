@@ -6,7 +6,7 @@ _______
 
 _______
 
-Usage:
+Build & Run:
 
 ``` sh
 git clone https://github.com/TonyJosi97/generic_hash_table
