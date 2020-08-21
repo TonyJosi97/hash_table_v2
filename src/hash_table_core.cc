@@ -296,19 +296,16 @@ ht_v2::ht_ret_status_t ht_v2::hash_table::ht_delete(
 
 unsigned long ht_v2::hash_table::ht_generate_key() {
 
-/*
     struct tm * timeinfo;
     time_t now = time(0);
     timeinfo = localtime(&now);
 
-    unsigned long min_int = (unsigned long) timeinfo->tm_min;
+    unsigned long min_int = static_cast<unsigned long>(timeinfo->tm_min);
     unsigned long nanosec_val = get_time_in_nanosec();
     nanosec_val = nanosec_val & 0x00FFFFFFFFFFFFFF;
     nanosec_val += ((min_int & 0xFF) << 56);
 
     return nanosec_val;
-*/
-    return get_time_in_nanosec();
 
 } 
 

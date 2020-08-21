@@ -51,12 +51,9 @@ get_next_prime(size_t base) {
 unsigned long 
 get_time_in_nanosec(
     void) {
-    auto now = std::chrono::system_clock::now();
-    auto duration = now.time_since_epoch();
-    auto nanoseconds =  std::chrono::duration_cast<std::chrono::nanoseconds>(duration);
-    auto val = nanoseconds.count();
-    unsigned long lval = static_cast<unsigned long>(val);
-    return lval;
+    struct timespec ts;
+    timespec_get(&ts, TIME_UTC);
+    return static_cast<unsigned long>(ts.tv_sec * 1000000000L + ts.tv_nsec);
 }
 
 
