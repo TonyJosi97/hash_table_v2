@@ -11,6 +11,7 @@
 
 #include <algorithm>
 #include <time.h>
+#include <iostream>
 
 #include "../inc/hash_table_v2.hpp"
 #include "../inc/hash_table_util.hpp"
@@ -27,6 +28,27 @@ ht_v2::hash_table::hash_table(
     , item_size         { item_size }
     , count             { 0 }
     , scaling_factor    { 0 }
+    , items             { capacity ? new struct _ght_item[capacity] : 0 } {
+
+    void *_t_mem = operator new(capacity * item_size);
+    for(unsigned long i = 0; i < capacity; ++i) {
+        items[i].is_active = false;
+        items[i].val_ptr = static_cast<char*>(_t_mem) + item_size * i;
+    }
+
+}
+
+ht_v2::hash_table::hash_table(
+    size_t      base_capacity, 
+    size_t      capacity, 
+    size_t      item_size,
+    int         scaling_factor) 
+
+    : base_capacity     { base_capacity }
+    , capacity          { capacity }
+    , item_size         { item_size }
+    , count             { 0 }
+    , scaling_factor    { scaling_factor }
     , items             { capacity ? new struct _ght_item[capacity] : 0 } {
 
     void *_t_mem = operator new(capacity * item_size);
@@ -315,9 +337,9 @@ int ht_v2::hash_table::__ht_core_util_resize(
         return 0;
 
     size_t new_size = get_next_prime(size_estimate);
-    hash_table new_ht(base_capacity, item_size);
-    new_ht.capacity = new_size;
-    new_ht.scaling_factor = scaling_factor;
+    hash_table new_ht(base_capacity, new_size, item_size, scaling_factor);
+
+    std::cout<<"Scaling: "<<new_size<<"\n";
 
     if(items) {
         for(size_t i = 0; i < capacity; i++) 
@@ -327,7 +349,7 @@ int ht_v2::hash_table::__ht_core_util_resize(
             }
     }
         
-    *this = new_ht;
+    *this = std::move(new_ht);
     return 0;
 }
 

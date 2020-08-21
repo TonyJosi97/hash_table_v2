@@ -45,6 +45,7 @@ namespace ht_v2 {
                                                         decreased on scale down */
             struct _ght_item   *items;              /*!< Pointer to the items memory of Hash Table */
 
+            hash_table(size_t base_capacity, size_t capacity, size_t item_size, int scaling_factor);
             void swap_hash_t_objs(hash_table &obj1, hash_table &obj2); /* Swaps 2 `hash_table` objects */
             int __ht_core_util_scale_up();
             int __ht_core_util_scale_down();
@@ -52,7 +53,7 @@ namespace ht_v2 {
             int __ht_core_util_item_init(struct _ght_item *items, unsigned long key, void *val);
 
         public:
-            explicit hash_table(size_t base_capacity, size_t item_size);
+            hash_table(size_t base_capacity, size_t item_size);
             hash_table(const hash_table &copy_ob);
             hash_table & operator=(const hash_table &copy_ob);
             hash_table(hash_table &&move_ob);

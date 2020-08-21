@@ -11,7 +11,7 @@ typedef struct _test_main {
     float y;
 } test_main_t;
 
-constexpr int max_tests {3250};
+constexpr int max_tests {325000};
  
 int main() {
 
@@ -21,8 +21,8 @@ int main() {
     unsigned long key_holder[max_tests];
 
     for(unsigned int i = 0; i < max_tests; ++i) {
-        temp.x = (655363463 * (i + 1)) % 97;
-        temp.y = (623434552 * (i + 1)) % 97;
+        temp.x = (655363463 * (i + 1)) % 1931;
+        temp.y = (623434552 * (i + 1)) % 1931;
         key_holder[i] = basic_test_obj.ht_generate_key();
         basic_test_obj.ht_insert(key_holder[i], &temp);
         std::cout<<temp.x<<" "<<temp.y<<" "<<key_holder[i]<<std::endl;
@@ -31,8 +31,9 @@ int main() {
     std::cout<<"--------------\n";
 
     for(int i = 0; i < max_tests; ++i) {
+        basic_test_obj.ht_get(key_holder[i], &temp);
         basic_test_obj.ht_delete(key_holder[i]);
-        //std::cout<<temp.x<<" "<<temp.y<<" "<<key_holder[i]<<std::endl;
+        std::cout<<temp.x<<" "<<temp.y<<" "<<key_holder[i]<<std::endl;
     }
 }
 
