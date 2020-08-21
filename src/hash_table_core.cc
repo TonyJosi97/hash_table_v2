@@ -11,7 +11,6 @@
 
 #include <algorithm>
 #include <time.h>
-#include <iostream>
 
 #include "../inc/hash_table_v2.hpp"
 #include "../inc/hash_table_util.hpp"
@@ -338,8 +337,6 @@ int ht_v2::hash_table::__ht_core_util_resize(
 
     size_t new_size = get_next_prime(size_estimate);
     hash_table new_ht(base_capacity, new_size, item_size, scaling_factor);
-
-    std::cout<<"Scaling: "<<new_size<<"\n";
 
     if(items) {
         for(size_t i = 0; i < capacity; i++) 
