@@ -1,7 +1,7 @@
   
 cmake_minimum_required(VERSION 3.18)
 
-project(hast_table VERSION 1.0)
+project(hast_table VERSION 2.0)
 
 set(CMAKE_BUILD_TYPE Debug)
 
@@ -39,8 +39,6 @@ include_directories(inc)
 add_subdirectory(src)
 
 set(SOURCES test_main.cc)
-
-# add_library(aes_exe STATIC ${SOURCES})
 
 add_executable(ht_exe ${SOURCES})
 

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.18)
 
-project(ht_lib VERSION 1.0)
+project(ht_lib VERSION 2.0)
 
 set(CMAKE_BUILD_TYPE Debug)
 
