@@ -1,8 +1,8 @@
 /** 
  *  @file   hash_table_util.hpp
- *  @brief  Library function defintions
+ *  @brief  Library utility function headers
  *
- *  This contains helper function defintions
+ *  This contains Library utility function headers
  *
  *  @author         Tony Josi   https://tonyjosi97.github.io/profile/
  *  @copyright      Copyright (C) 2020 Tony Josi

@@ -1,3 +1,15 @@
+/** 
+ *  @file   hash_table_core_util.cc
+ *  @brief  Library utility function defintions
+ *
+ *  This contains the Library utility function defintions
+ *
+ *  @author         Tony Josi   https://tonyjosi97.github.io/profile/
+ *  @copyright      Copyright (C) 2020 Tony Josi
+ *  @bug            No known bugs.
+ */
+
+
 #include <math.h>
 #include <chrono>
 
