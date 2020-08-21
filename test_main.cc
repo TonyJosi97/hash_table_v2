@@ -11,11 +11,11 @@ typedef struct _test_main {
     float y;
 } test_main_t;
 
-constexpr int max_tests {50};
+constexpr int max_tests {3250};
  
 int main() {
 
-    hash_table basic_test_obj(1931, 1931, sizeof(test_main_t), 0, 0);
+    hash_table basic_test_obj(1931, sizeof(test_main_t));
     //unsigned long val = basic_test_obj.ht_generate_key();
     test_main_t temp;
     unsigned long key_holder[max_tests];

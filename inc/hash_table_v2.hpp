@@ -52,7 +52,7 @@ namespace ht_v2 {
             int __ht_core_util_item_init(struct _ght_item *items, unsigned long key, void *val);
 
         public:
-            explicit hash_table(size_t base_capacity, size_t capacity, size_t item_size, size_t count, int scaling_factor);
+            explicit hash_table(size_t base_capacity, size_t item_size);
             hash_table(const hash_table &copy_ob);
             hash_table & operator=(const hash_table &copy_ob);
             hash_table(hash_table &&move_ob);

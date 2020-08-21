@@ -20,16 +20,13 @@ constexpr size_t SCALE_DOWN_THRESHOLD   {20};
 
 ht_v2::hash_table::hash_table(
     size_t      base_capacity, 
-    size_t      capacity, 
-    size_t      item_size, 
-    size_t      count, 
-    int         scaling_factor) 
+    size_t      item_size) 
 
     : base_capacity     { base_capacity }
-    , capacity          { capacity }
+    , capacity          { base_capacity }
     , item_size         { item_size }
-    , count             { count }
-    , scaling_factor    { scaling_factor }
+    , count             { 0 }
+    , scaling_factor    { 0 }
     , items             { capacity ? new struct _ght_item[capacity] : 0 } {
 
     void *_t_mem = operator new(capacity * item_size);
@@ -318,7 +315,9 @@ int ht_v2::hash_table::__ht_core_util_resize(
         return 0;
 
     size_t new_size = get_next_prime(size_estimate);
-    hash_table new_ht(base_capacity, new_size, item_size, 0, scaling_factor);
+    hash_table new_ht(base_capacity, item_size);
+    new_ht.capacity = new_size;
+    new_ht.scaling_factor = scaling_factor;
 
     if(items) {
         for(size_t i = 0; i < capacity; i++) 
@@ -328,7 +327,7 @@ int ht_v2::hash_table::__ht_core_util_resize(
             }
     }
         
-    *this = std::move(new_ht);
+    *this = new_ht;
     return 0;
 }
 
