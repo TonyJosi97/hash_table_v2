@@ -2,7 +2,7 @@
 
 _______
 
-### [v1.0](https://github.com/TonyJosi97/generic_hash_table)
+### [v1.0 - docs](https://github.com/TonyJosi97/generic_hash_table)
 
 _______
 
