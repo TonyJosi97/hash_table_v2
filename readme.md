@@ -9,7 +9,7 @@ _______
 Build & Run:
 
 ``` sh
-git clone https://github.com/TonyJosi97/generic_hash_table
+git clone git@github.com:TonyJosi97/hash_table_v2.git
 cd hash_table_v2
 mkdir build
 cmake ..
