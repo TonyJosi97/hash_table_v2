@@ -11,6 +11,7 @@
 
 #include <algorithm>
 #include <time.h>
+#include <iostream>
 
 #include "../inc/hash_table_v2.hpp"
 #include "../inc/hash_table_util.hpp"
@@ -28,6 +29,8 @@ ht_v2::hash_table::hash_table(
     , count             { 0 }
     , scaling_factor    { 0 }
     , items             { capacity ? new struct _ght_item[capacity] : 0 } {
+
+    std::cout<<"Public normal cons.\n";
 
     void *_t_mem = operator new(capacity * item_size);
     for(unsigned long i = 0; i < capacity; ++i) {
@@ -50,6 +53,8 @@ ht_v2::hash_table::hash_table(
     , scaling_factor    { scaling_factor }
     , items             { capacity ? new struct _ght_item[capacity] : 0 } {
 
+    std::cout<<"Private normal cons.\n";
+
     void *_t_mem = operator new(capacity * item_size);
     for(unsigned long i = 0; i < capacity; ++i) {
         items[i].is_active = false;
@@ -67,6 +72,8 @@ ht_v2::hash_table::hash_table(
     , count             { copy_ob.count }
     , scaling_factor    { copy_ob.scaling_factor }
     , items             { capacity ? new struct _ght_item[capacity] : 0 } {
+
+    std::cout<<"Copy cons.\n";
 
     void *_t_mem = operator new(capacity * item_size);
     for(unsigned long i = 0; i < capacity; ++i) {
@@ -99,6 +106,8 @@ ht_v2::hash_table & ht_v2::hash_table::operator=(
     const ht_v2::hash_table &copy_ob
 ) {
 
+    std::cout<<"Copy assign.\n";
+
     ht_v2::hash_table val_obj(copy_ob);
     swap_hash_t_objs(*this, val_obj);
     return *this;
@@ -116,6 +125,8 @@ ht_v2::hash_table::hash_table(
     , scaling_factor    { move_ob.scaling_factor }
     , items             { move_ob.items } {
 
+    std::cout<<"Move cons.\n";
+
     move_ob.items = nullptr;
     move_ob.base_capacity = 0;
     move_ob.capacity = 0;
@@ -127,6 +138,8 @@ ht_v2::hash_table::hash_table(
 
 ht_v2::hash_table & ht_v2::hash_table::operator=(
     ht_v2::hash_table &&move_ob) {
+
+    std::cout<<"Move assign.\n";
 
     if(this != &move_ob) {
         if(items) {
@@ -151,6 +164,8 @@ ht_v2::hash_table & ht_v2::hash_table::operator=(
 }
 
 ht_v2::hash_table::~hash_table() {
+
+    std::cout<<"Destructor\n";
 
     if(items) {
         operator delete(items[0].val_ptr);
@@ -334,6 +349,8 @@ int ht_v2::hash_table::__ht_core_util_resize(
 
     if(size_estimate < (base_capacity))
         return 0;
+    
+    std::cout<<"Resize\n";
 
     size_t new_size = get_next_prime(size_estimate);
     hash_table new_ht(base_capacity, new_size, item_size, scaling_factor);
@@ -346,7 +363,7 @@ int ht_v2::hash_table::__ht_core_util_resize(
             }
     }
         
-    *this = std::move(new_ht);
+    *this = new_ht;
     return 0;
 }
 
