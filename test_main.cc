@@ -3,8 +3,6 @@
 #include "inc/hash_table_v2.hpp"
 
 using namespace ht_v2;
-//#define RAND_GEN(N)                     (int)((double)rand() / ((double)RAND_MAX + 1) * N)
-
 
 typedef struct _test_main {
     int x;
