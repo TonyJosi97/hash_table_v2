@@ -182,8 +182,14 @@ ht_v2::ht_ret_status_t ht_v2::hash_table::ht_insert(
     size_t ht_density = (count * 100) / capacity;
     if(ht_density > SCALE_UP_THRESHOLD) {
 
-        if(__ht_core_util_scale_up() != 0) 
-            throw "Scale UP Failed";
+        *this = __ht_core_util_resize(capacity * 2); 
+        /*                -- N O T E --
+
+            *this = std::move(__ht_core_util_resize(capacity * 2)); 
+
+            moving a temporary object
+            prevents copy elision [-Wpessimizing-move] 
+        */
         
         scaling_factor += 1;
 
@@ -206,7 +212,6 @@ ht_v2::ht_ret_status_t ht_v2::hash_table::ht_insert(
     }
 
     try  {
-        //__ht_core_util_item_init(&items[item_index], key, val_ptr);
         items[item_index].is_active = true;
         items[item_index].key = key;
         memcpy(items[item_index].val_ptr, val_ptr, item_size);
@@ -275,8 +280,14 @@ ht_v2::ht_ret_status_t ht_v2::hash_table::ht_delete(
 
     if((scaling_factor > 0) && (ht_density < SCALE_DOWN_THRESHOLD)) {
 
-        if(__ht_core_util_scale_down() != HT_SUCCESS)
-            throw "Scale Down failed";
+        *this = __ht_core_util_resize(capacity / 2);
+        /*                -- N O T E --
+
+            *this = std::move(__ht_core_util_resize(capacity / 2)); 
+
+            moving a temporary object
+            prevents copy elision [-Wpessimizing-move] 
+        */
 
         scaling_factor -= 1;
     }
@@ -343,12 +354,9 @@ unsigned long ht_v2::hash_table::ht_generate_key() {
 } 
 
 
-int ht_v2::hash_table::__ht_core_util_resize(
+ht_v2::hash_table ht_v2::hash_table::__ht_core_util_resize(
     size_t size_estimate
 ) { 
-
-    if(size_estimate < (base_capacity))
-        return 0;
     
     std::cout<<"Resize\n";
 
@@ -359,22 +367,10 @@ int ht_v2::hash_table::__ht_core_util_resize(
         for(size_t i = 0; i < capacity; i++) 
             if(items[i].is_active == true) {
                 if(new_ht.ht_insert(items[i].key, items[i].val_ptr) != HT_SUCCESS)
-                    return 1;
+                    {}
             }
     }
-        
-    *this = std::move(new_ht);
-    return 0;
-}
 
-
-int ht_v2::hash_table::__ht_core_util_scale_up() { 
-
-    return __ht_core_util_resize(capacity * 2);
-}
-
-int ht_v2::hash_table::__ht_core_util_scale_down() { 
-
-    return __ht_core_util_resize(capacity / 2);
+    return new_ht;
 }
 

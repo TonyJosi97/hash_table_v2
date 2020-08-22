@@ -11,7 +11,7 @@ typedef struct _test_main {
     float y;
 } test_main_t;
 
-constexpr int max_tests {32500};
+constexpr int max_tests {3250};
  
 int main() {
 

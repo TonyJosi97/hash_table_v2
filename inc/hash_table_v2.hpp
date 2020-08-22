@@ -47,10 +47,7 @@ namespace ht_v2 {
 
             hash_table(size_t base_capacity, size_t capacity, size_t item_size, int scaling_factor);
             void swap_hash_t_objs(hash_table &obj1, hash_table &obj2); /* Swaps 2 `hash_table` objects */
-            int __ht_core_util_scale_up();
-            int __ht_core_util_scale_down();
-            int __ht_core_util_resize(size_t);
-            int __ht_core_util_item_init(struct _ght_item *items, unsigned long key, void *val);
+            hash_table __ht_core_util_resize(size_t);
 
         public:
             hash_table(size_t base_capacity, size_t item_size);
