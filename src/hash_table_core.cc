@@ -363,7 +363,7 @@ int ht_v2::hash_table::__ht_core_util_resize(
             }
     }
         
-    *this = new_ht;
+    *this = std::move(new_ht);
     return 0;
 }
 
