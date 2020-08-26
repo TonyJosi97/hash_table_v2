@@ -38,7 +38,7 @@ ht_v2::hash_table::hash_table(
     , scaling_factor    { 0 }
     , items             { capacity ? new struct _ght_item[capacity] : 0 } {
 
-    _ht_DEBUG_OP("Public normal cons.\n");
+    _ht_DEBUG_OP("Public normal cons. "<<this<<"\n");
 
     void *_t_mem = operator new(capacity * item_size);
     for(unsigned long i = 0; i < capacity; ++i) {
@@ -61,7 +61,7 @@ ht_v2::hash_table::hash_table(
     , scaling_factor    { scaling_factor }
     , items             { capacity ? new struct _ght_item[capacity] : 0 } {
 
-    _ht_DEBUG_OP("Private normal cons.\n");
+    _ht_DEBUG_OP("Private normal cons. "<<this<<"\n");
 
     void *_t_mem = operator new(capacity * item_size);
     for(unsigned long i = 0; i < capacity; ++i) {
@@ -81,7 +81,7 @@ ht_v2::hash_table::hash_table(
     , scaling_factor    { copy_ob.scaling_factor }
     , items             { capacity ? new struct _ght_item[capacity] : 0 } {
 
-    _ht_DEBUG_OP("Copy cons.\n");
+    _ht_DEBUG_OP("Copy cons. "<<this<<"\n");
 
     void *_t_mem = operator new(capacity * item_size);
     for(unsigned long i = 0; i < capacity; ++i) {
@@ -104,17 +104,13 @@ void ht_v2::hash_table::swap_hash_t_objs(
     std::swap(obj1.scaling_factor,  obj2.scaling_factor);
     std::swap(obj1.items,           obj2.items);
 
-    for(size_t i = 0; i < capacity; ++i) {
-        std::swap(obj1.items[i].is_active,      obj2.items[i].is_active);
-        std::swap(obj1.items[i].val_ptr,        obj2.items[i].val_ptr);
-    }
 }
 
 ht_v2::hash_table & ht_v2::hash_table::operator=(
     const ht_v2::hash_table &copy_ob
 ) {
 
-    _ht_DEBUG_OP("Copy assign.\n");
+    _ht_DEBUG_OP("Copy assign. "<<this<<"\n");
 
     ht_v2::hash_table val_obj(copy_ob);
     swap_hash_t_objs(*this, val_obj);
@@ -133,7 +129,7 @@ ht_v2::hash_table::hash_table(
     , scaling_factor    { move_ob.scaling_factor }
     , items             { move_ob.items } {
 
-    _ht_DEBUG_OP("Move cons.\n");
+    _ht_DEBUG_OP("Move cons. "<<this<<"\n");
 
     move_ob.items = nullptr;
 
@@ -142,7 +138,7 @@ ht_v2::hash_table::hash_table(
 ht_v2::hash_table & ht_v2::hash_table::operator=(
     ht_v2::hash_table &&move_ob) {
 
-    _ht_DEBUG_OP("Move assign.\n");
+    _ht_DEBUG_OP("Move assign. "<<this<<"\n");
 
     if(this != &move_ob) {
         if(items) {
@@ -164,7 +160,7 @@ ht_v2::hash_table & ht_v2::hash_table::operator=(
 
 ht_v2::hash_table::~hash_table() {
 
-    _ht_DEBUG_OP("Destructor\n");
+    _ht_DEBUG_OP("Destructor "<<this<<"\n");
 
     if(items) {
         operator delete(items[0].val_ptr);
@@ -220,6 +216,7 @@ ht_v2::ht_ret_status_t ht_v2::hash_table::ht_insert(
     }
 
     count += 1;
+    
     return HT_SUCCESS;
 }
 
@@ -279,7 +276,7 @@ ht_v2::ht_ret_status_t ht_v2::hash_table::ht_delete(
 
     if((scaling_factor > 0) && (ht_density < SCALE_DOWN_THRESHOLD)) {
 
-        *this = __ht_core_util_resize(capacity / 2);
+        *this = __ht_core_util_resize(capacity / 2); 
         /*                -- N O T E --
 
             *this = std::move(__ht_core_util_resize(capacity / 2)); 

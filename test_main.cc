@@ -9,7 +9,7 @@ typedef struct _test_main {
     float y;
 } test_main_t;
 
-constexpr int max_tests {325000};
+constexpr int max_tests {3250};
  
 int main() {
 
@@ -29,7 +29,10 @@ int main() {
     std::cout<<"--------------\n";
 
     for(int i = 0; i < max_tests; ++i) {
-        basic_test_obj.ht_get(key_holder[i], &temp);
+        if(basic_test_obj.ht_get(key_holder[i], &temp) != HT_SUCCESS) {
+            std::cout<<"Delete: Couldn't find element!\n";
+            continue;
+        }
         basic_test_obj.ht_delete(key_holder[i]);
         std::cout<<temp.x<<" "<<temp.y<<" "<<key_holder[i]<<std::endl;
     }
